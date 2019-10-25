@@ -1,0 +1,7 @@
+{
+    "masterPort": "3999",
+    "worker0Port": "4000",
+    "worker1Port": "4001",
+    "worker2Port": "4002",
+    "worker3Port": "4003"
+}
