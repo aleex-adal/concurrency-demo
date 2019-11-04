@@ -25,11 +25,10 @@ setInterval(() => {
 socket.on('master', data => {
     busy = true;
     console.log('worker2 received ' + data.workload + ' seconds of work');
-    
     setTimeout(() => {
         socket.emit('worker', {ready: true})
         busy = false;
-    });
+    }, data.workload * 1000);
 });
 
 var server = http.listen(port, function() {
