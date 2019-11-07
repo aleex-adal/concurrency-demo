@@ -46,16 +46,16 @@ int main() {
     while (1) {
         // pop a call off of the stack and execute it
         if (callIndex >= 0) {
-            printf("\nloop: pop call stack\n");
+            // printf("\nloop: pop call stack\n");
             callStack[callIndex--]();
 
         // only if there are no calls on the stack, execute calls on the job and msg queues
         } else if (callIndex < 0 && jobIndex >= 0) {
-            printf("\nloop: dequeue job queue\n");
+            // printf("\nloop: dequeue job queue\n");
             jobQueue[jobIndex--]();
         
         } else if (callIndex < 0 && msgIndex >= 0) {
-            printf("\nloop: dequeue message queue\n");
+            // printf("\nloop: dequeue message queue\n");
             messageQueue[msgIndex--]();
 
         // else there are no calls, no jobs, and no messages
