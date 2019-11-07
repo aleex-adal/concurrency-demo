@@ -3,36 +3,28 @@
 #include <string.h>
 #include <pthread.h>
 
-// ####################################
-// function declarations
+// this stuff would normally go in a header file (eventloop.h)
 void a();
 void b();
 void c();
-void timeout();
-void async();
-
-void *setTimeout(void *arg);
-void *simulateAsync(void *arg);
 
 pthread_t tid;
 pthread_t tid2;
 void createTimeoutThread();
+void *setTimeout(void *arg);
+void timeout();
 void createAsyncThread();
+void *simulateAsync(void *arg);
+void async();
 
 void initGlobals();
-// ####################################
 
-// ####################################
-// stacks and indices
 void (*callStack[4])();
 int callIndex;
-
 void (*messageQueue[3])();
 int msgIndex;
-
 void (*jobQueue[3])();
 int jobIndex;
-// ####################################
 
 int main() {
     // a();
@@ -46,16 +38,13 @@ int main() {
     while (1) {
         // pop a call off of the stack and execute it
         if (callIndex >= 0) {
-            // printf("\nloop: pop call stack\n");
             callStack[callIndex--]();
 
         // only if there are no calls on the stack, execute calls on the job and msg queues
         } else if (callIndex < 0 && jobIndex >= 0) {
-            // printf("\nloop: dequeue job queue\n");
             jobQueue[jobIndex--]();
         
         } else if (callIndex < 0 && msgIndex >= 0) {
-            // printf("\nloop: dequeue message queue\n");
             messageQueue[msgIndex--]();
 
         // else there are no calls, no jobs, and no messages
@@ -64,24 +53,6 @@ int main() {
     }
 }
 
-// ####################################
-// implementing primitive and helper functions
-
-void a() {
-    printf("Aa\n");
-};
-
-void c() {
-    printf("Cc\n");
-};
-
-void timeout() {
-    printf("execute timeout callback\n");
-}
-
-void async() {
-    printf("execute async data call\n");
-};
 
 void initGlobals() {
     msgIndex = -1;
@@ -99,11 +70,7 @@ void initGlobals() {
     callStack[3] = a;
 }
 
-// ####################################
-
-// ####################################
-// implementing non-blocking calls with threads
-
+// implement non-blocking calls with threads
 void createTimeoutThread() {
     pthread_create(&tid, NULL, setTimeout, NULL);
 }
@@ -112,6 +79,10 @@ void *setTimeout(void *arg) {
     sleep(0);
     printf("pushing timeout callback onto message queue\n");
     messageQueue[++msgIndex] = timeout;
+}
+
+void timeout() {
+    printf("execute timeout callback\n");
 }
 
 void createAsyncThread() {
@@ -123,4 +94,14 @@ void *simulateAsync(void *arg) {
     jobQueue[++jobIndex] = async;
 }
 
-// ####################################
+void async() {
+    printf("execute async data call\n");
+};
+
+void a() {
+    printf("Aa\n");
+};
+
+void c() {
+    printf("Cc\n");
+};
