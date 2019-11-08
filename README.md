@@ -49,7 +49,8 @@ If we must process this data in any way, it would be useful to split up these la
 	-  `master.js`, `worker1.js`, and `worker2.js` split the workload among multiple node servers that can be on the same computer or distributed. The code here is simpler because distributed nodes naturally solve certain multithreading problems such as mutexes and shared data
 
 3. Actually use multithreading in JavaScript with [Web Workers](https://medium.com/techtrument/multithreading-javascript-46156179cf9a)
-	- `webworker.js` uses Web Workers to split the workload among multiple threads in the browser. This code is still simpler than C because it relies on message passing just like the websockets in the multiple-node example
+	- `webmaster.html` uses Web Workers to split the workload among multiple threads in the browser. This code is still simpler than C because it relies on message passing just like the websockets in the multiple-node example
+        - to run this code in the browser, navigate to the webworker folder and use the local-web-server package from node modules (../node_modules/local-web-server/bin/cli.js)
   
 
 ---

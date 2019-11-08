@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>n-queens solver</title>
+</head>
+
+<body>
+  <script type="webworker.js"></script>
+  <script>
+    var workload = [];
+    for (var i=0; i<9; i++) {
+        workload.push(Math.round(Math.random() * 5));
+    }
+
+    var str = 'workload queue: [ '
+    workload.forEach(item => {
+        str = str.concat(item + ' ');
+    });
+    str = str.concat(']');
+    console.log(str);
+
+    var workers = [new Worker('webworker.js'), new Worker('webworker.js')];
+
+    for (var i = 0; i < workers.length; i++) {
+        workers[i].addEventListener('message', function(e) {
+            if (e.data.msg == 'ready!' && workload.length > 0) {
+                this.postMessage({
+                    workload: workload.pop()
+                });
+            }
+        }, false);
+
+        workers[i].postMessage({
+            id: i,
+            workload: workload.pop()
+        });
+    }   
+  </script>
+</body>
+
+</html>
