@@ -58,6 +58,8 @@ If we must process this data in any way, it would be useful to split up these la
 
 - You can reduce the processing time of a large workload on a single web page or computer by using Web Workers.
 
-- You can reduce the processing time of a large workload on a single computer or on multiple computers by using multiple nodes in NodeJS.
+- You can reduce the processing time of a large workload on a single computer or on multiple computers by using multiple nodes in nodeJS.
+
+- Both Web Workers and using multiple node servers copy data instead of using shared data. True multithreaded programs use shared memory, which is faster but more complicated. 
 
 - JavaScript's asynchronous behavior is enabled by the browser. The browser populates its queues at various times, causing code that responds to those events to trigger at various times. The browser provides the additional threads (Web Workers).
