@@ -3,41 +3,97 @@
 <html>
 
 <head>
-  <title>n-queens solver</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  
+    <!-- from https://github.com/devyumao/dragon-loading -->
+    <link rel="stylesheet" href="dragon.css">
+
+    <title>web-worker-demo</title>
 </head>
 
 <body>
-  <script type="webworker.js"></script>
-  <script>
-    var workload = [];
-    for (var i=0; i<9; i++) {
-        workload.push(Math.round(Math.random() * 5));
-    }
+  <script type="text/javascript" src="webmaster.js"></script>
+  <script type="text/javascript" src="generic_workload_worker.js"></script>
+  <script type="text/javascript" src="reddit_worker.js"></script>
 
-    var str = 'workload queue: [ '
-    workload.forEach(item => {
-        str = str.concat(item + ' ');
-    });
-    str = str.concat(']');
-    console.log(str);
+<div class="full">
+    <div class="left-half">
+        <button type="button" class="btn btn-primary" onclick="webworkers()">Assign generic workload</button>
+        <ul>
+            <div id="most-title"></div>
+            <li id="0"></li>
+            <li id="1"></li>
+            <li id="2"></li>
+            <li id="3"></li>
+            <li id="4"></li>
+            <li id="5"></li>
+            <li id="6"></li>
+            <li id="7"></li>
+            <li id="8"></li>
+            <li id="9"></li>
+        </ul>
+    </div>
+    <div class="right-half">
+        <button type="button" class="btn btn-secondary" onclick="loadData()">Load data (no web workers)</button>
+        <button type="button" class="btn btn-primary" onclick="loadDataWithWebWorker()">Load data WITH web workers</button>
 
-    var workers = [new Worker('webworker.js'), new Worker('webworker.js')];
+        <ul class="least-list">
+            <div id="least-title"></div>
+            <li id="99"></li>
+            <li id="98"></li>
+            <li id="97"></li>
+            <li id="96"></li>
+            <li id="95"></li>
+            <li id="94"></li>
+            <li id="93"></li>
+            <li id="92"></li>
+            <li id="91"></li>
+            <li id="90"></li>
+        </ul>
+    </div>
+</div>
 
-    for (var i = 0; i < workers.length; i++) {
-        workers[i].addEventListener('message', function(e) {
-            if (e.data.msg == 'ready!' && workload.length > 0) {
-                this.postMessage({
-                    workload: workload.pop()
-                });
-            }
-        }, false);
+<!-- from https://github.com/devyumao/dragon-loading -->
+<div class="dragon-container">
+    <div class="main">
+        <div class="shadow-wrapper">
+            <div class="shadow"></div>
+        </div>
+        <div class="dragon">
+            <div class="body"></div>
+            <div class="horn-left"></div>
+            <div class="horn-right"></div>
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+            <div class="blush left"></div>
+            <div class="blush right"></div>
+            <div class="mouth"></div>
+            <div class="tail-sting"></div>
+        </div>
+        <div class="fire-wrapper">
+            <div class="fire"></div>
+        </div>
+        <div class="progress">
+            <div class="outer">
+                <div class="inner"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
-        workers[i].postMessage({
-            id: i,
-            workload: workload.pop()
-        });
-    }   
-  </script>
+
+
+
+
+
+
+
+
 </body>
 
 </html>
