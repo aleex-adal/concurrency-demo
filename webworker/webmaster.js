@@ -1,4 +1,4 @@
-function webworkers() {
+function generic_webworker_demo() {
     var workload = [];
     for (var i=0; i<9; i++) {
         workload.push(Math.round(Math.random() * 5));
@@ -33,7 +33,7 @@ function webworkers() {
     }
 }
 
-function loadDataWithWebWorker() {
+function loadDataWithRedditWorker() {
     console.log("starting to load reddit comments");
     clearLists();
 
@@ -54,7 +54,7 @@ function loadDataWithWebWorker() {
 function loadData() {
     console.log("starting to load reddit comments");
     clearLists();
-    fetch('http://localhost:8000/one.json').then(response => {
+    fetch('http://localhost:8000/reddit_data.json').then(response => {
         response.json().then(json => {
             let data = json;
             console.log(data);
@@ -102,6 +102,8 @@ function clearLists() {
     for (let i=99; i >= 90; i--) {
         document.getElementById(i).innerHTML = '';
     }
+
+    document.getElementById("5").innerHTML = 'Processing...';
 }
 
 function populateLists(arr) {
@@ -114,4 +116,9 @@ function populateLists(arr) {
         let ind = arr.length -1 -(orig - i);
         document.getElementById(i).innerHTML = arr[ind][0] + ': ' + arr[ind][1] + ' times';
     }
+}
+
+var clicks = 0;
+function onClick() {
+    document.getElementById("onClick").innerHTML = ++clicks;
 }

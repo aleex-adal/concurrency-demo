@@ -11,7 +11,7 @@ self.addEventListener('message', async function(e) {
 }, false);
 
 async function workerLoadData() {
-    let response = await fetch('http://localhost:8000/one.json');
+    let response = await fetch('http://localhost:8000/reddit_data.json');
     let data = await response.json();
 
     console.log(data);

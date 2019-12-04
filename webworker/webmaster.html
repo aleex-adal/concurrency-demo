@@ -23,7 +23,10 @@
 
 <div class="full">
     <div class="left-half">
-        <button type="button" class="btn btn-primary" onclick="webworkers()">Assign generic workload</button>
+        <div class="centered">
+            <button type="button" class="btn btn-primary" onclick="generic_webworker_demo()">Assign generic workload</button>
+            <button type="button" class="btn btn-warning" onclick="onClick()">numClicks: <span id="onClick">0</span></button>
+        </div>
         <ul>
             <div id="most-title"></div>
             <li id="0"></li>
@@ -39,9 +42,10 @@
         </ul>
     </div>
     <div class="right-half">
-        <button type="button" class="btn btn-secondary" onclick="loadData()">Load data (no web workers)</button>
-        <button type="button" class="btn btn-primary" onclick="loadDataWithWebWorker()">Load data WITH web workers</button>
-
+        <div class="centered">
+            <button type="button" class="btn btn-secondary" onclick="loadData()">Load data (no web workers)</button>
+            <button type="button" class="btn btn-primary" onclick="loadDataWithRedditWorker()">Load data WITH web workers</button>
+        </div>
         <ul class="least-list">
             <div id="least-title"></div>
             <li id="99"></li>
@@ -85,14 +89,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
 
 </body>
 
