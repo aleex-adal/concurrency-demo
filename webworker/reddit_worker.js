@@ -1,5 +1,3 @@
-var id = null;
-
 self.addEventListener('message', async function(e) {
     if (e.data.begin) {
         var arr = await workerLoadData();

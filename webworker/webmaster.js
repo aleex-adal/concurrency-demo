@@ -1,39 +1,4 @@
-function generic_webworker_demo() {
-    var workload = [];
-    for (var i=0; i<9; i++) {
-        workload.push(Math.round(Math.random() * 5));
-    }
-
-    var str = 'workload queue: [ '
-    workload.forEach(item => {
-        str = str.concat(item + ' ');
-    });
-    str = str.concat(']');
-    console.log(str);
-
-    var workers = [new Worker('generic_workload_worker.js'), new Worker('generic_workload_worker.js')];
-
-    for (var i = 0; i < workers.length; i++) {
-        workers[i].addEventListener('message', function(e) {
-            if (e.data.msg == 'ready!' && workload.length > 0) {
-                this.postMessage({
-                    workload: workload.pop()
-                });
-            } else if (e.data.msg == 'ready!' && workload.length == 0) {
-                for (var i = 0; i < workers.length; i++) {
-                    workers[i].terminate();
-                }
-            }
-        }, false);
-
-        workers[i].postMessage({
-            id: i,
-            workload: workload.pop()
-        });
-    }
-}
-
-function loadDataWithRedditWorker() {
+function loadDataWithWebWorker() {
     console.log("starting to load reddit comments");
     clearLists();
 
@@ -42,7 +7,9 @@ function loadDataWithRedditWorker() {
         if (e.data.done) {
             worker.terminate();
             var arr = e.data.arr;
-            populateLists(arr);
+            populateLists(arr); 
+            // the worker does not have access to the DOM
+            // can also use wasm in the worker
         }
     });
 
